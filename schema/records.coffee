@@ -29,3 +29,7 @@ exports.schema =
     first_view: 'integer'
     
     flash_load: 'integer'
+
+    snail_name: ''
+
+    snail_duration: 'integer'
