@@ -14,6 +14,11 @@ receiveData = (req, res, next)->
   # console.log 1
   _api.receiveData req, res, (err, result)-> _http.responseJSON err, result, res
 
+receiveFlashLoad = (req, res, next)->
+  # console.log "进程:#{_cluster.worker.id}"
+  # console.log 1
+  _api.receiveFlashLoad req, res, (err, result)-> _http.responseJSON err, result, res
+
 
 #初始化路由
 exports.init = (app)->
@@ -27,6 +32,8 @@ exports.init = (app)->
     next()
   #常规请求
   app.get '/api/receive', receiveData
+
+  app.get '/api/flash', receiveFlashLoad
 
   
   # app.get /(\/\w+)?$/, (req, res, next)-> res.sendfile 'static/index.html'
