@@ -37,6 +37,7 @@ exports.receiveFlashLoad = (req, res, cb)->
   data.ip = _ip.ipToInt getClientIp(req)
   data.url = req.query.url || null
   data.hash = String(req.query.hash) + String(data.ip)
+  data.load_time = req.query.load_time
   records_flash.push data 
   if records_flash.length > 0
     _records_flash = records_flash
