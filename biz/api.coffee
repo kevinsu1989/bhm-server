@@ -33,7 +33,7 @@ validateData = (data)->
 
 exports.receiveFlashLoad = (req, res, cb)->
   data = {}
-  data.timestamp = new Date().valueOf()
+  data.timestamp = req.query.hash || new Date().valueOf()
   data.ip = _ip.ipToInt getClientIp(req)
   data.url = req.query.url || null
   data.hash = String(req.query.hash) + String(data.ip)
@@ -52,7 +52,7 @@ exports.receiveData = (req, res, cb)->
   data = req.query
   data.ip = _ip.ipToInt getClientIp(req)
   data.hash = String(req.query.hash) + String(data.ip)
-  data.timestamp = new Date().valueOf()
+  data.timestamp = req.query.hash || new Date().valueOf()
   if !validateData(data)
     data.first_paint = 0
     data.dom_ready = 0
