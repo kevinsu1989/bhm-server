@@ -1,7 +1,6 @@
-#    Author: 易晓峰
-#    E-mail: wvv8oo@gmail.com
+#    Author: 苏衎
 #    Date: 3/19/15 11:20 AM
-#    Description: 处理路由以及socket
+#    Description: 处理路由
 _async = require 'async'
 _http = require('bijou').http
 
@@ -36,7 +35,6 @@ exports.init = (app)->
   app.get '/api/flash', receiveFlashLoad
 
   
-  # app.get /(\/\w+)?$/, (req, res, next)-> res.sendfile 'static/index.html'
 
 
 

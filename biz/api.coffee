@@ -11,6 +11,8 @@ records = []
 
 records_flash = [];
 
+server_version = process.env.npm_package_version
+
 # timestamp = new Date().valueOf()
 
 # 获取客户端IP
@@ -31,13 +33,15 @@ validateData = (data)->
   (data.first_paint * 1 + data.dom_ready * 1 + data.load_time * 1 + data.first_view * 1) < 3600000 &&
   data.first_paint * data.dom_ready * data.load_time * data.first_view > 0
 
-exports.receiveFlashLoad = (req, res, cb)->
+exports.receiveFlashLoad = (req, res, cb)-> 
   data = {}
   data.timestamp = req.query.hash || new Date().valueOf()
   data.ip = _ip.ipToInt getClientIp(req)
   data.url = req.query.url || null
   data.hash = String(req.query.hash) + String(data.ip)
   data.load_time = req.query.load_time
+  data.server_version = server_version
+
   records_flash.push data 
   if records_flash.length > 0
     _records_flash = records_flash
@@ -53,6 +57,9 @@ exports.receiveData = (req, res, cb)->
   data.ip = _ip.ipToInt getClientIp(req)
   data.hash = String(req.query.hash) + String(data.ip)
   data.timestamp = req.query.hash || new Date().valueOf()
+  data.server_version = server_version
+  delete data.callback
+  delete data._
   if !validateData(data)
     data.first_paint = 0
     data.dom_ready = 0
@@ -61,9 +68,7 @@ exports.receiveData = (req, res, cb)->
 
   records.push data 
 
-  # if new Date().valueOf() - timestamp > 10000
   if records.length > 0
-    # timestamp = new Date().valueOf()
     _records = records
     records = []
     _entity.records.addRecords _records, (err, result)->

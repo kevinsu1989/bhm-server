@@ -26,7 +26,6 @@ initBijou = (app)->
       _bijou.scanSchema schema, done
   )
 
-
   _async.waterfall queue, (err)->
     console.log err if err
     console.log 'Monitor Server is running now!'
