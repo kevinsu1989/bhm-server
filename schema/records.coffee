@@ -29,6 +29,10 @@ exports.schema =
     first_view: 'integer'
     # 播放器加载是否成功
     flash_load: 'integer'
+    # 是否安装flash
+    flash_installed: 'integer'
+    # flash版本
+    flash_version: ''
     # 播放器加载时间
     flash_load_time: 'integer'
     # 页面加载耗时最长的元素

@@ -4,6 +4,7 @@ _http = require('bijou').http
 _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
+_common = require '../common'
 
 # _entity = require '../entity'
 
@@ -12,16 +13,6 @@ records = []
 records_flash = [];
 
 server_version = process.env.npm_package_version
-
-# timestamp = new Date().valueOf()
-
-# 获取客户端IP
-getClientIp = (req)-> 
-  ipAddress = req.headers['x-forwarded-for'] ||
-  req.connection.remoteAddress ||
-  req.socket.remoteAddress ||
-  req.connection.socket.remoteAddress
-  ipAddress.split("ffff:").pop()
     
 # 验证数据
 validateData = (data)->
@@ -35,8 +26,8 @@ validateData = (data)->
 
 exports.receiveFlashLoad = (req, res, cb)-> 
   data = {}
-  data.timestamp = req.query.hash || new Date().valueOf()
-  data.ip = _ip.ipToInt getClientIp(req)
+  data.timestamp = new Date().valueOf()
+  data.ip = _ip.ipToInt _common.getClientIp(req)
   data.url = req.query.url || null
   data.hash = String(req.query.hash) + String(data.ip)
   data.load_time = req.query.load_time
@@ -56,7 +47,7 @@ exports.receiveData = (req, res, cb)->
   data = req.query
   data.ip = _ip.ipToInt getClientIp(req)
   data.hash = String(req.query.hash) + String(data.ip)
-  data.timestamp = req.query.hash || new Date().valueOf()
+  data.timestamp = new Date().valueOf()
   data.server_version = server_version
   delete data.callback
   delete data._
@@ -67,6 +58,8 @@ exports.receiveData = (req, res, cb)->
     data.first_view = 0
 
   records.push data 
+
+  console.log data
 
   if records.length > 0
     _records = records
