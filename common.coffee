@@ -66,14 +66,18 @@ exports.html2text = (html)->
     .replace(RegExp(' ', 'gi'), '')
 #    .replace(/ [\s| | ]* /g,' ')
 
-#枚举
-exports.enumerate =
-  projectFlag:
-    wiki: 1
-    service: 2
-    normal: 0
 
 #安全转换JSON
 exports.parseJSON = (text)->
   return {} if not text or typeof(text) isnt 'string'
   JSON.parse text
+
+
+exports.getClientIp = (req)-> 
+  ipAddress = req.headers['x-forwarded-for'] ||
+  req.connection.remoteAddress ||
+  req.socket.remoteAddress ||
+  req.connection.socket.remoteAddress
+  ipAddress = if /((?:(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))))/.test ipAddress then RegExp.$1 else '127.0.0.1'
+
+

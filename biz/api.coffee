@@ -49,6 +49,7 @@ exports.receiveData = (req, res, cb)->
   data.hash = String(req.query.hash) + String(data.ip)
   data.timestamp = new Date().valueOf()
   data.server_version = server_version
+  data.ua = req.headers['user-agent'] || null
   delete data.callback
   delete data._
   if !validateData(data)

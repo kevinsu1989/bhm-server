@@ -45,3 +45,9 @@ exports.schema =
     hash: ''
     # 服务端版本
     server_version: ''
+    # 加载flash的js调用时间
+    flash_js_load: 'integer'
+    # userAgent
+    ua: ''
+    # 客户端版本
+    cli_version: ''
