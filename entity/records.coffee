@@ -1,8 +1,4 @@
-
 _BaseEntity = require('bijou').BaseEntity
-_async = require 'async'
-_ = require 'lodash'
-
 
 class Records extends _BaseEntity
     constructor: ()->

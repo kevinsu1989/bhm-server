@@ -5,6 +5,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
+_redis = require 'redis'
 
 getData = (req)->
   data = 

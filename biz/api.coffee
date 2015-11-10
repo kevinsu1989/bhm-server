@@ -5,6 +5,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
+_redis = require 'redis'
 
 # _entity = require '../entity'
 
@@ -45,7 +46,7 @@ exports.receiveFlashLoad = (req, res, cb)->
 
 exports.receiveData = (req, res, cb)->
   data = req.query
-  data.ip = _ip.ipToInt getClientIp(req)
+  data.ip = _ip.ipToInt _common.getClientIp(req)
   data.hash = String(req.query.hash) + String(data.ip)
   data.timestamp = new Date().valueOf()
   data.server_version = server_version
@@ -59,8 +60,6 @@ exports.receiveData = (req, res, cb)->
     data.first_view = 0
 
   records.push data 
-
-  console.log data
 
   if records.length > 0
     _records = records

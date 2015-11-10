@@ -47,6 +47,8 @@ exports.schema =
     server_version: ''
     # 加载flash的js调用时间
     flash_js_load: 'integer'
+    # 加载flash的js开始调用时间
+    flash_js_load_start: 'integer'
     # userAgent
     ua: ''
     # 客户端版本
