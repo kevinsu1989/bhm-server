@@ -56,6 +56,7 @@ exports.receiveData = (req, res, cb)->
     flash_js_load: req.query.flash_js_load || null
     flash_js_load_start: req.query.flash_js_load_start || null
     version: req.query.version || null
+    cli_version: req.query.cli_version || null
   }
   data.url = data.url.split('?')[0] if type of data.url is 'string'
   data.snail_name = data.snail_name.split('?')[0] if type of data.snail_name is 'string'
