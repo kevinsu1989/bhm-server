@@ -18,7 +18,7 @@ class MRecordsAPP extends _BaseEntity
       return if !result || result.length is 0
       _redis.ltrim 'bhm_m_records_app', result.length, -1
       list = JSON.parse "[#{result.toString()}]"
-      this.entity().insert(list).exec (err, data)->
+      _this.entity().insert(list).exec (err, data)->
         console.log err if err
         console.log "m_records_app表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
 

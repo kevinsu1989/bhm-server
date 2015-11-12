@@ -9,7 +9,6 @@ inert2DB = ()->
   console.log new Date().valueOf()
   for key, entity of _entity 
     if entity.insert2DB
-      console.log 123
       entity.insert2DB() 
 
 
