@@ -35,3 +35,4 @@ module.exports = (app)->
   console.log "启动中..."
   require('./router').init(app)
   initBijou app
+  _schedule.initSchedule() if process.env.SCHEDULE
