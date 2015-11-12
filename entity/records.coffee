@@ -6,15 +6,19 @@ class Records extends _BaseEntity
     super require('../schema/records').schema
 
   addRecords: (list, cb)->
+    _redis.lpush 'bhm_records', JSON.stringify(list[0])
+    cb null,null
+
+
+  insert2DB: (cb)->
     _this = @
     _redis.lrange 'bhm_records', 0, -1, (err, result)->
-      if result and result.length >= 100
-        _redis.ltrim 'bhm_records', result.length, -1
-        list = JSON.parse "[#{result.toString()}]"
-        _this.entity().insert(list).exec (err, data)->
-          cb err, data
-      else
-        _redis.lpush 'bhm_records', JSON.stringify(list[0])
-        cb null,null
+      return cb null, null if !result || result.length is 0
+      _redis.ltrim 'bhm_records', result.length, -1
+      list = JSON.parse "[#{result.toString()}]"
+      this.entity().insert(list).exec (err, data)->
+        console.log err if err
+        console.log "records表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
+        cb err, data
 
 module.exports = new Records

@@ -46,11 +46,20 @@ exports.receiveFlashLoad = (req, res, cb)->
 
 exports.receiveData = (req, res, cb)->
   data = req.query
-  data.ip = _ip.ipToInt _common.getClientIp(req)
+  data = _.extend data, {
+    ip: _ip.ipToInt _common.getClientIp(req)
+    timestamp: new Date().valueOf()
+    server_version: server_version
+    ua: req.headers['user-agent'].substring(0,100) || null
+    snail_name: req.query.snail_name || null
+    snail_duration: req.query.snail_duration || null
+    flash_js_load: req.query.flash_js_load || null
+    flash_js_load_start: req.query.flash_js_load_start || null
+    version: req.query.version || null
+  }
+  data.url = data.url.split('?')[0] if type of data.url is 'string'
+  data.snail_name = data.snail_name.split('?')[0] if type of data.snail_name is 'string'
   data.hash = String(req.query.hash) + String(data.ip)
-  data.timestamp = new Date().valueOf()
-  data.server_version = server_version
-  data.ua = req.headers['user-agent'] || null
   delete data.callback
   delete data._
   if !validateData(data)
@@ -69,4 +78,8 @@ exports.receiveData = (req, res, cb)->
   else
     cb null
 
+
+exports.insert2DB = (req, res, cb)->
+  for key, entity of _entity 
+    entity.insert2DB() if entity.insert2DB
 

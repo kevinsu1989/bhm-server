@@ -1,7 +1,6 @@
 
 exports.schema =
   name: 'records'
-
   fields:
     # 客户端ip
     ip: 'bigInteger'
