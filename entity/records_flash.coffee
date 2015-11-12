@@ -11,14 +11,14 @@ class RecordsFlash extends _BaseEntity
     cb null, null
 
 
-  insert2DB: (cb)->
+  insert2DB: ()->
     _this = @
     _redis.lrange 'bhm_flash', 0, -1, (err, result)->
-      return cb null, null if !result || result.length is 0
+      return if !result || result.length is 0
       _redis.ltrim 'bhm_flash', result.length, -1
       list = JSON.parse "[#{result.toString()}]"
       this.entity().insert(list).exec (err, data)->
         console.log err if err
         console.log "records_flash表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
-        cb err, data
+
 module.exports = new RecordsFlash

@@ -10,15 +10,15 @@ class Records extends _BaseEntity
     cb null,null
 
 
-  insert2DB: (cb)->
+  insert2DB: ()->
     _this = @
     _redis.lrange 'bhm_records', 0, -1, (err, result)->
-      return cb null, null if !result || result.length is 0
+      console.log result
+      return if !result || result.length is 0
       _redis.ltrim 'bhm_records', result.length, -1
       list = JSON.parse "[#{result.toString()}]"
       this.entity().insert(list).exec (err, data)->
         console.log err if err
         console.log "records表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
-        cb err, data
 
 module.exports = new Records

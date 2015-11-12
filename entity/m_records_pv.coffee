@@ -11,15 +11,14 @@ class MRecordsPV extends _BaseEntity
     cb null,null
 
 
-  insert2DB: (cb)->
+  insert2DB: ()->
     _this = @
     _redis.lrange 'bhm_m_records_pv', 0, -1, (err, result)->
-      return cb null, null if !result || result.length is 0
+      return if !result || result.length is 0
       _redis.ltrim 'bhm_m_records_pv', result.length, -1
       list = JSON.parse "[#{result.toString()}]"
       this.entity().insert(list).exec (err, data)->
         console.log err if err
         console.log "m_records_pv表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
-        cb err, data
 
 module.exports = new MRecordsPV
