@@ -12,9 +12,13 @@ getData = (req)->
     timestamp: new Date().valueOf(),
     url: req.query.url || null,
     video_id: req.query.video_id || null,
-    ua: req.headers['user-agent'] || null,
+    ua: req.headers['user-agent'].substring(0,100) || null,
     cli_time: req.query.time,
     ip: _ip.ipToInt _common.getClientIp(req)
+    
+  data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
+
+  data
 
 
 

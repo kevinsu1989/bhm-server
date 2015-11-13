@@ -7,6 +7,8 @@ _ip = require 'lib-qqwry'
 _common = require '../common'
 _redis = require 'redis'
 
+_schema_records = require('../schema/records').schema.fields
+
 # _entity = require '../entity'
 
 records = []
@@ -14,6 +16,7 @@ records = []
 records_flash = [];
 
 server_version = process.env.npm_package_version
+
     
 # 验证数据
 validateData = (data)->
@@ -33,6 +36,8 @@ exports.receiveFlashLoad = (req, res, cb)->
   data.hash = String(req.query.hash) + String(data.ip)
   data.load_time = req.query.load_time
   data.server_version = server_version
+  
+  data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
 
   records_flash.push data 
   if records_flash.length > 0
@@ -44,22 +49,15 @@ exports.receiveFlashLoad = (req, res, cb)->
     cb null
 
 
+
 exports.receiveData = (req, res, cb)->
-  data = req.query
-  data = _.extend data, {
-    ip: _ip.ipToInt _common.getClientIp(req)
-    timestamp: new Date().valueOf()
-    server_version: server_version
-    ua: req.headers['user-agent'].substring(0,100) || null
-    snail_name: req.query.snail_name || null
-    snail_duration: req.query.snail_duration || null
-    flash_js_load: req.query.flash_js_load || null
-    flash_js_load_start: req.query.flash_js_load_start || null
-    version: req.query.version || null
-    cli_version: req.query.cli_version || null
-  }
-  data.url = data.url.split('?')[0] if type of data.url is 'string'
-  data.snail_name = data.snail_name.split('?')[0] if type of data.snail_name is 'string'
+  data = _common.initInsertData _schema_records, req.query
+  data.ip = _ip.ipToInt _common.getClientIp(req)
+  data.timestamp = new Date().valueOf()
+  data.server_version = server_version
+  data.ua = req.headers['user-agent'].substring(0,100) || null
+  data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
+  data.snail_name = data.snail_name.split('?')[0].substring(0,100) if typeof data.snail_name is 'string'
   data.hash = String(req.query.hash) + String(data.ip)
   delete data.callback
   delete data._
@@ -71,6 +69,7 @@ exports.receiveData = (req, res, cb)->
 
   records.push data 
 
+  console.log data
   if records.length > 0
     _records = records
     records = []

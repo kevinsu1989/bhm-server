@@ -19,6 +19,6 @@ class MRecordsVV extends _BaseEntity
       list = JSON.parse "[#{result.toString()}]"
       _this.entity().insert(list).exec (err, data)->
         console.log err if err
-        console.log "m_records_vv表于#{new Date().valueOf()}入库#{list.length}条数据" if !err
+        console.log "m_records_vv表于#{new Date().toString()}入库#{list.length}条数据" if !err
 
 module.exports = new MRecordsVV

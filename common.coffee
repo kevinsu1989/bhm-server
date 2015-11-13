@@ -72,6 +72,13 @@ exports.parseJSON = (text)->
   return {} if not text or typeof(text) isnt 'string'
   JSON.parse text
 
+#安全转换JSON
+exports.initInsertData = (schema, query)->
+  data = {}
+  for key, value of schema
+    data[key] = query[key] || null
+  data
+
 
 exports.getClientIp = (req)-> 
   ipAddress = req.headers['x-forwarded-for'] ||
