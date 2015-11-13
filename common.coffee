@@ -72,7 +72,7 @@ exports.parseJSON = (text)->
   return {} if not text or typeof(text) isnt 'string'
   JSON.parse text
 
-#安全转换JSON
+#过滤入库数据格式
 exports.initInsertData = (schema, query)->
   data = {}
   for key, value of schema
