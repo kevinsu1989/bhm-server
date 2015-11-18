@@ -5,8 +5,8 @@ class MRecordsDetail extends _BaseEntity
   constructor: ()->
     super require('../schema/m_records_detail').schema
 
-  addRecords: (list, cb)->
-    _redis.lpush 'bhm_m_records_detail', JSON.stringify(list[0])
+  addRecords: (record, cb)->
+    _redis.lpush 'bhm_m_records_detail', JSON.stringify(record)
     cb null,null
 
 

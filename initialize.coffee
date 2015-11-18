@@ -29,7 +29,10 @@ initBijou = (app)->
 
   _async.waterfall queue, (err)->
     console.log err if err
-    console.log 'Monitor Server is running now!'
+    if process.env.SCHEDULE
+      console.log 'BHM Server-Schedule is running now!'
+    else
+      console.log 'BHM Server is running now!'
 
 
 module.exports = (app)->

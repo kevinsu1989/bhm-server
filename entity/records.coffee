@@ -5,8 +5,8 @@ class Records extends _BaseEntity
   constructor: ()->
     super require('../schema/records').schema
 
-  addRecords: (list, cb)->
-    _redis.lpush 'bhm_records', JSON.stringify(list[0])
+  addRecords: (record, cb)->
+    _redis.lpush 'bhm_records', JSON.stringify(record)
     cb null,null
 
 

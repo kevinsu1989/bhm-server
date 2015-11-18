@@ -6,8 +6,8 @@ class RecordsFlash extends _BaseEntity
     super require('../schema/records_flash').schema
 
 
-  addRecords: (list, cb)->
-    _redis.lpush 'bhm_flash', JSON.stringify(list[0])
+  addRecords: (record, cb)->
+    _redis.lpush 'bhm_flash', JSON.stringify(record)
     cb null, null
 
 

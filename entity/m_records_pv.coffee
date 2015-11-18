@@ -6,8 +6,8 @@ class MRecordsPV extends _BaseEntity
     super require('../schema/m_records_pv').schema
 
 
-  addRecords: (list, cb)->
-    _redis.lpush 'bhm_m_records_pv', JSON.stringify(list[0])
+  addRecords: (record, cb)->
+    _redis.lpush 'bhm_m_records_pv', JSON.stringify(record)
     cb null,null
 
 
