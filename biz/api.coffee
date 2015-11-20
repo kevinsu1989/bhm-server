@@ -9,6 +9,7 @@ _redis = require 'redis'
 
 _schema_records = require('../schema/records').schema.fields
 _schema_records_pv = require('../schema/records_pv').schema.fields
+_schema_records_js_error = require('../schema/records_js_error').schema.fields
 
 # _entity = require '../entity'
 
@@ -73,6 +74,17 @@ exports.receivePV = (req, res, cb)->
   data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
 
   _entity.records_pv.addRecords data, (err, result)->
+    cb err
+
+
+exports.receiveJsError = (req, res, cb)-> 
+  data = _common.initInsertData _schema_records_js_error, req.query
+  data.timestamp = new Date().valueOf()
+  data.ua = req.headers['user-agent'].substring(0,100) || null
+  data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
+  data.message = data.message.split('?')[0].substring(0,300) if typeof data.message is 'string'
+
+  _entity.records_js_error.addRecords data, (err, result)->
     cb err
 
 

@@ -13,9 +13,9 @@ inert2DB = ()->
 
 
 exports.initSchedule = ()->
-  inert2DB()
+  # inert2DB()
   rule_mi = new _schedule.RecurrenceRule()
 
   rule_mi.second = 0
 
-  # mi = _schedule.scheduleJob rule_mi, inert2DB
+  mi = _schedule.scheduleJob rule_mi, inert2DB

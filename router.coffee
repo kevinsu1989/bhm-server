@@ -18,6 +18,9 @@ receiveFlashLoad = (req, res, next)->
 receivePV = (req, res, next)->
   _api.receivePV req, res, (err, result)-> _http.responseJSON err, result, res
 
+receiveJsError = (req, res, next)->
+  _api.receiveJsError req, res, (err, result)-> _http.responseJSON err, result, res
+
 receiveMPV = (req, res, next)->
   _mapi.receiveMPV req, res, (err, result)-> _http.responseJSON err, result, res
 
@@ -50,6 +53,8 @@ exports.init = (app)->
   app.get '/api/flash', receiveFlashLoad
 
   app.get '/api/pv', receivePV
+
+  app.get '/api/js/error', receiveJsError
 
   app.get '/api/m/pv', receiveMPV
 
