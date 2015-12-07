@@ -8,8 +8,6 @@ class RecordsPV extends _BaseEntity
 
   addRecords: (record, cb)->
     _redis.lpush 'bhm_pv', JSON.stringify(record)
-    _redis.lrange 'bhm_pv', 0, -1, (err, result)->
-      console.log result.toString()
     cb null, null
 
 

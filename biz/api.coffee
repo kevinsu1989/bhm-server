@@ -121,13 +121,15 @@ exports.receiveData = (req, res, cb)->
   data = _common.initInsertData _schema_records, req.query
   data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
   data.snail_name = data.snail_name.split('?')[0].substring(0,100) if typeof data.snail_name is 'string'
+  data.ip = _ip.ipToInt _common.getClientIp(req)
   data = _.extend data,
     browser_name: ua.browser.name, 
     browser_version: ua.browser.version,
     ua: ua.ua.substring(0,100),
     timestamp : new Date().valueOf(),
     hash: String(req.query.hash) + String(data.ip)
-    ip: _ip.ipToInt _common.getClientIp(req)
+
+
 
   if !validateData(data)
     data.first_paint = 0
@@ -135,7 +137,6 @@ exports.receiveData = (req, res, cb)->
     data.load_time = 0
     data.first_view = 0
 
-  console.log data
   _entity.records.addRecords data, (err, result)->
     cb err
 
