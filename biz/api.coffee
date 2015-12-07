@@ -123,11 +123,13 @@ exports.receiveData = (req, res, cb)->
   data.snail_name = data.snail_name.split('?')[0].substring(0,100) if typeof data.snail_name is 'string'
   data.ip = _ip.ipToInt _common.getClientIp(req)
   data = _.extend data,
-    browser_name: ua.browser.name, 
-    browser_version: ua.browser.version,
-    ua: ua.ua.substring(0,100),
     timestamp : new Date().valueOf(),
     hash: String(req.query.hash) + String(data.ip)
+
+
+  data.browser_name = ua.browser.name || null
+  data.browser_version = ua.browser.version || null
+  data.ua = ua.ua || null
 
 
 
@@ -148,11 +150,16 @@ exports.receivePV = (req, res, cb)->
   data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
   data.ip = _ip.ipToInt _common.getClientIp(req)
   data = _.extend data,
-    browser_name: ua.browser.name, 
-    browser_version: ua.browser.version,
-    ua: ua.ua.substring(0,100),
+    # browser_name: ua.browser.name, 
+    # browser_version: ua.browser.version,
+    # ua: ua.ua.substring(0,100),
     timestamp : new Date().valueOf(),
     hash: String(req.query.hash) + String(data.ip)
+
+  
+  data.browser_name = ua.browser.name || null
+  data.browser_version = ua.browser.version || null
+  data.ua = ua.ua || null
 
   _entity.records_pv.addRecords data, (err, result)->
     cb err
