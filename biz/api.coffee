@@ -127,7 +127,7 @@ exports.receiveData = (req, res, cb)->
     hash: String(req.query.hash) + String(data.ip)
 
 
-  data.browser_name = ua.browser.name || null
+  data.browser_name = ua.browser.name.toLowerCase() || null
   data.browser_version = ua.browser.version || null
   data.ua = ua.ua.substring(0,100) || null
 
@@ -157,7 +157,7 @@ exports.receivePV = (req, res, cb)->
     hash: String(req.query.hash) + String(data.ip)
 
 
-  data.browser_name = ua.browser.name || null
+  data.browser_name = ua.browser.name.toLowerCase() || null
   data.browser_version = ua.browser.version || null
   data.ua = ua.ua.substring(0,100) || null
 
