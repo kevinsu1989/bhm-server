@@ -129,7 +129,7 @@ exports.receiveData = (req, res, cb)->
 
   data.browser_name = ua.browser.name || null
   data.browser_version = ua.browser.version || null
-  data.ua = ua.ua || null
+  data.ua = ua.ua.substring(0,100) || null
 
 
 
@@ -156,10 +156,10 @@ exports.receivePV = (req, res, cb)->
     timestamp : new Date().valueOf(),
     hash: String(req.query.hash) + String(data.ip)
 
-  
+
   data.browser_name = ua.browser.name || null
   data.browser_version = ua.browser.version || null
-  data.ua = ua.ua || null
+  data.ua = ua.ua.substring(0,100) || null
 
   _entity.records_pv.addRecords data, (err, result)->
     cb err
