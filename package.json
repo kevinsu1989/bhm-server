@@ -15,7 +15,8 @@
     "cluster": "^0.7.7",
     "node-schedule": "^0.2.9",
     "node-redis": "^0.1.7",
-    "lib-qqwry": ""
+    "lib-qqwry": "",
+    "ua-parser-js": "^0.7.9"
   },
   "scripts": {
     "start": "node-dev app.coffee"

@@ -33,6 +33,7 @@ initBijou = (app)->
       console.log 'BHM Server-Schedule is running now!'
     else
       console.log 'BHM Server is running now!'
+      console.log "需要同时开启定时入库进程--SCHEDULE=true".red
 
 
 module.exports = (app)->

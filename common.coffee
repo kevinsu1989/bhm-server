@@ -6,6 +6,8 @@ _crypto = require 'crypto'
 _events = require 'events'
 _ = require 'lodash'
 
+
+_ua = require 'ua-parser-js'
 _util = require 'util'
 _pageEvent = new _events.EventEmitter()
 
@@ -71,6 +73,9 @@ exports.html2text = (html)->
 exports.parseJSON = (text)->
   return {} if not text or typeof(text) isnt 'string'
   JSON.parse text
+
+exports.parseUA = (req)->
+  _ua req.headers['user-agent']
 
 #过滤入库数据格式
 exports.initInsertData = (schema, query)->

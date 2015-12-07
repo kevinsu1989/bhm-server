@@ -7,9 +7,15 @@ _async = require 'async'
 inert2DB = ()->
   # console.log _entity
   console.log new Date().valueOf()
+  index = 0
   for key, entity of _entity 
-    if entity.insert2DB
-      entity.insert2DB() 
+    ((entity)->
+      setTimeout(()->
+        if entity.insert2DB
+          entity.insert2DB() 
+      , (index++) * 5 * 1000)
+    )(entity)
+
 
 
 exports.initSchedule = ()->

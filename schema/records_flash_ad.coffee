@@ -7,13 +7,11 @@ exports.schema =
     ip: 'bigInteger'
     # 上报时间
     timestamp: 'bigInteger'
-    # flash加载时间
-    load_time: 'integer'
+    # 广告时间
+    ad_time: 'integer'
     # 上报的url
     url: ''
     # 本次上报的hash
     hash: ''
-    # 服务端版本
-    server_version: ''
     # 客户端版本
     cli_version: ''

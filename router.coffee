@@ -9,11 +9,9 @@ _api = require './biz/api'
 _mapi = require './biz/m_api'
 _cluster = require 'cluster'
 
+#################
 receiveData = (req, res, next)->
   _api.receiveData req, res, (err, result)-> _http.responseJSON err, result, res
-
-receiveFlashLoad = (req, res, next)->
-  _api.receiveFlashLoad req, res, (err, result)-> _http.responseJSON err, result, res
 
 receivePV = (req, res, next)->
   _api.receivePV req, res, (err, result)-> _http.responseJSON err, result, res
@@ -21,6 +19,26 @@ receivePV = (req, res, next)->
 receiveJsError = (req, res, next)->
   _api.receiveJsError req, res, (err, result)-> _http.responseJSON err, result, res
 
+#################
+receiveFlashLoad = (req, res, next)->
+  _api.receiveFlashLoad req, res, (err, result)-> _http.responseJSON err, result, res
+
+receiveFlashAd = (req, res, next)->
+  _api.receiveFlashAd req, res, (err, result)-> _http.responseJSON err, result, res
+
+receiveFlashPlay = (req, res, next)->
+  _api.receiveFlashPlay req, res, (err, result)-> _http.responseJSON err, result, res
+
+receiveFlashCMS = (req, res, next)->
+  _api.receiveFlashCMS req, res, (err, result)-> _http.responseJSON err, result, res
+
+receiveFlashDispatch = (req, res, next)->
+  _api.receiveFlashDispatch req, res, (err, result)-> _http.responseJSON err, result, res
+
+receiveFlashVideoLoad = (req, res, next)->
+  _api.receiveFlashVideoLoad req, res, (err, result)-> _http.responseJSON err, result, res
+
+#################
 receiveMPV = (req, res, next)->
   _mapi.receiveMPV req, res, (err, result)-> _http.responseJSON err, result, res
 
@@ -51,6 +69,16 @@ exports.init = (app)->
   app.get '/api/receive', receiveData
 
   app.get '/api/flash', receiveFlashLoad
+
+  app.get '/api/flash/ad', receiveFlashAd
+
+  app.get '/api/flash/play', receiveFlashPlay
+
+  app.get '/api/flash/cms', receiveFlashCMS
+
+  app.get '/api/flash/dispatch', receiveFlashDispatch
+
+  app.get '/api/flash/video', receiveFlashVideoLoad
 
   app.get '/api/pv', receivePV
 
