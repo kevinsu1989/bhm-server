@@ -1,6 +1,6 @@
 :
 exports.schema =
-  name: 'records_flash_ad'
+  name: 'records_flash_ad_end'
 
   fields:
   	# 客户端ip

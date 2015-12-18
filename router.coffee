@@ -26,6 +26,9 @@ receiveFlashLoad = (req, res, next)->
 receiveFlashAd = (req, res, next)->
   _api.receiveFlashAd req, res, (err, result)-> _http.responseJSON err, result, res
 
+receiveFlashAdEnd = (req, res, next)->
+  _api.receiveFlashAdEnd req, res, (err, result)-> _http.responseJSON err, result, res
+
 receiveFlashPlay = (req, res, next)->
   _api.receiveFlashPlay req, res, (err, result)-> _http.responseJSON err, result, res
 
@@ -71,6 +74,8 @@ exports.init = (app)->
   app.get '/api/flash', receiveFlashLoad
 
   app.get '/api/flash/ad', receiveFlashAd
+
+  app.get '/api/flash/adend', receiveFlashAdEnd
 
   app.get '/api/flash/play', receiveFlashPlay
 

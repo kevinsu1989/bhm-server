@@ -52,5 +52,7 @@ exports.schema =
     ua: ''
     # 客户端版本
     cli_version: ''
-    # 客户端版本
+    # 失败重发
     repost: 'integer'
+    # refer
+    refer: ''
