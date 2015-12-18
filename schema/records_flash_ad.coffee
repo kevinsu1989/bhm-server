@@ -1,4 +1,4 @@
-:
+
 exports.schema =
   name: 'records_flash_ad'
 
