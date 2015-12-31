@@ -41,6 +41,9 @@ receiveFlashDispatch = (req, res, next)->
 receiveFlashVideoLoad = (req, res, next)->
   _api.receiveFlashVideoLoad req, res, (err, result)-> _http.responseJSON err, result, res
 
+receiveFlashBufferFull = (req, res, next)->
+  _api.receiveFlashBufferFull req, res, (err, result)-> _http.responseJSON err, result, res
+
 #################
 receiveMPV = (req, res, next)->
   _mapi.receiveMPV req, res, (err, result)-> _http.responseJSON err, result, res
@@ -55,6 +58,12 @@ receiveMSource = (req, res, next)->
   _mapi.receiveMSource req, res, (err, result)-> _http.responseJSON err, result, res
 
 receiveMDetail = (req, res, next)->
+  _mapi.receiveMDetail req, res, (err, result)-> _http.responseJSON err, result, res
+
+#################
+
+receiveM = (req, res, next)->
+
   _mapi.receiveMDetail req, res, (err, result)-> _http.responseJSON err, result, res
 
 
@@ -85,6 +94,8 @@ exports.init = (app)->
 
   app.get '/api/flash/video', receiveFlashVideoLoad
 
+  app.get '/api/flash/bufferfull', receiveFlashBufferFull
+
   app.get '/api/pv', receivePV
 
   app.get '/api/js/error', receiveJsError
@@ -98,6 +109,8 @@ exports.init = (app)->
   app.get '/api/m/source', receiveMSource
 
   app.get '/api/m/detail', receiveMDetail
+
+  app.get '/api/m/report', receiveM
 
   
 
