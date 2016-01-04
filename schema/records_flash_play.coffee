@@ -15,3 +15,5 @@ exports.schema =
     hash: ''
     # 客户端版本
     cli_version: ''
+    # 客户端上报时间
+    cli_time: ''
