@@ -1,5 +1,5 @@
 fields =
-  load: 
+  LOAD: 
     # 客户端ip
     ip: 'bigInteger'
     # 上报时间
@@ -16,7 +16,7 @@ fields =
     cli_version: ''
     # 客户端上报时间
     cli_time: ''
-  ad:
+  AD:
     # 客户端ip
     ip: 'bigInteger'
     # 上报时间
@@ -31,7 +31,7 @@ fields =
     cli_version: ''
     # 客户端上报时间
     cli_time: ''
-  normal:
+  NORMAL:
     # 客户端ip
     ip: 'bigInteger'
     # 上报时间
@@ -53,46 +53,46 @@ module.exports =
 
 	  name: 'records_flash'
 
-	  fields: fields.load
+	  fields: fields.LOAD
 
   AD:
 
     name: 'records_flash_ad'
 
-    fields: fields.ad
+    fields: fields.AD
 
   AD_END:
 
     name: 'records_flash_ad_end'
 
-    fields: fields.ad
+    fields: fields.AD
 
   AD_PLAY:
 
     name: 'records_flash_play'
 
-    fields: fields.ad
+    fields: fields.AD
 
   BUFFER_FULL:
 
     name: 'records_flash_buffer_full'
 
-    fields: fields.normal
+    fields: fields.NORMAL
 
   CMS:
 
     name: 'records_flash_cms'
 
-    fields: fields.normal
+    fields: fields.NORMAL
 
   DISPATCH:
 
     name: 'records_flash_dispatch'
 
-    fields: fields.normal
+    fields: fields.NORMAL
 
   VIDEO_LOAD:
 
     name: 'records_flash_video_load'
 
-    fields: fields.normal
+    fields: fields.NORMAL
