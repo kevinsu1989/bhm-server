@@ -20,39 +20,22 @@ getData = (req)->
 
   data
 
+getDataN = (req)->
+  data = 
+    timestamp: new Date().valueOf(),
+    ua: req.headers['user-agent'].substring(0,100) || null,
+    video_id: req.query.video_id || null,
+    ip: _ip.ipToInt _common.getClientIp(req)
+    
+  data.hash = req.query.video_id + data.ip
+
+  data
 
 
-exports.receiveMPV = (req, res, cb)-> 
-  data = getData req
-  # console.log 'pv'
-  _entity.m_records_pv.addRecords data, (err, result)->
-    cb err
-
-exports.receiveMVV = (req, res, cb)-> 
-  data = getData req
-  # console.log 'vv'
-
-  _entity.m_records_vv.addRecords data, (err, result)->
-    cb err
-
-exports.receiveMAPP = (req, res, cb)-> 
-  data = getData req
-  # console.log 'app'
-
-  _entity.m_records_app.addRecords data, (err, result)->
-    cb err
-
-exports.receiveMSource = (req, res, cb)-> 
-  data = getData req
-  # console.log 's'
+exports.receive = (req, res, cb)-> 
+  data = getDataN req
   
-  _entity.m_records_source.addRecords data, (err, result)->
-      cb err
+  _entity["m_records_#{req.params.name}"]?.addRecords data, (err, result)->
 
-exports.receiveMDetail = (req, res, cb)-> 
-  data = getData req
-  # console.log 'd'
-  
-  _entity.m_records_detail.addRecords data, (err, result)->
-      cb err
+  cb null,null
 

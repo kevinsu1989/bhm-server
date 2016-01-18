@@ -48,6 +48,8 @@ exports.schema =
     flash_js_load: 'integer'
     # 加载flash的js开始调用时间
     flash_js_load_start: 'integer'
+    # 加载flash的js开始调用时间
+    flash_resource: 'integer'
     # userAgent
     ua: ''
     # 客户端版本

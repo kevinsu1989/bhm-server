@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class MRecordsSource extends _BaseEntity
   constructor: ()->
-    super require('../schema/m_records_source').schema
+    super require('../schema/records_mobile').SOURCE
 
   addRecords: (record, cb)->
     _redis.lpush 'bhm_m_records_source', JSON.stringify(record)

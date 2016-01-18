@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class RecordsFlashDispatch extends _BaseEntity
   constructor: ()->
-    super require('../schema/records_flash_dispatch').schema
+    super require('../schema/records_flash').DISPATCH
 
 
   addRecords: (record, cb)->

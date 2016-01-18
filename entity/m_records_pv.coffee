@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class MRecordsPV extends _BaseEntity
   constructor: ()->
-    super require('../schema/m_records_pv').schema
+    super require('../schema/records_mobile').PV
 
 
   addRecords: (record, cb)->

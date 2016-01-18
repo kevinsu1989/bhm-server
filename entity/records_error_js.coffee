@@ -7,18 +7,18 @@ class RecordsJsError extends _BaseEntity
 
 
   addRecords: (record, cb)->
-    _redis.lpush 'bhm_js_error', JSON.stringify(record)
+    _redis.lpush 'bhm_error_js', JSON.stringify(record)
     cb null, null
 
 
   insert2DB: ()->
     _this = @
-    _redis.lrange 'bhm_js_error', 0, -1, (err, result)->
+    _redis.lrange 'bhm_error_js', 0, -1, (err, result)->
       return if !result || result.length is 0
-      _redis.ltrim 'bhm_js_error', result.length, -1
+      _redis.ltrim 'bhm_error_js', result.length, -1
       list = JSON.parse "[#{result.toString()}]"
       _this.entity().insert(list).exec (err, data)->
         console.log err if err
-        console.log "records_js_error表于#{new Date().toString()}入库#{list.length}条数据" if !err
+        console.log "records_error_js表于#{new Date().toString()}入库#{list.length}条数据" if !err
 
 module.exports = new RecordsJsError

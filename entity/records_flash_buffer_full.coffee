@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class RecordsFlashBufferFull extends _BaseEntity
   constructor: ()->
-    super require('../schema/records_flash_buffer_full').schema
+    super require('../schema/records_flash').BUFFER_FULL
 
 
   addRecords: (record, cb)->

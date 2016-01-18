@@ -1,10 +1,9 @@
 _BaseEntity = require('bijou').BaseEntity
 _redis = require("../redis-connect").redis
 
-
 class MRecordsAPP extends _BaseEntity
   constructor: ()->
-    super require('../schema/m_records_app').schema
+    super require('../schema/records_mobile').APP
 
 
   addRecords: (record, cb)->
@@ -23,4 +22,3 @@ class MRecordsAPP extends _BaseEntity
         console.log "m_records_app表于#{new Date().toString()}入库#{list.length}条数据" if !err
 
 module.exports = new MRecordsAPP
-

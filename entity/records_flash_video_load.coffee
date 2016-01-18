@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class RecordsFlashVideoLoad extends _BaseEntity
   constructor: ()->
-    super require('../schema/records_flash_video_load').schema
+    super require('../schema/records_flash').VIDEO_LOAD
 
 
   addRecords: (record, cb)->

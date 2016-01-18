@@ -15,5 +15,8 @@ _app.configure(()->
 
 require('./initialize')(_app)
 
+_app.use '/crossdomain.xml', (req, resp)->
+  resp.sendFile _path.join(__dirname, "crossdomain.xml")
+
 _app.listen _app.get 'port'
 console.log "Port: #{_app.get 'port'}, Now: #{new Date()}"

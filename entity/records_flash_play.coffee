@@ -3,7 +3,7 @@ _redis = require("../redis-connect").redis
 
 class RecordsFlashPlay extends _BaseEntity
   constructor: ()->
-    super require('../schema/records_flash_play').schema
+    super require('../schema/records_flash').PLAY
 
 
   addRecords: (record, cb)->
