@@ -2,24 +2,27 @@ _schedule = require 'node-schedule'
 _entity = require '../entity'
 _child = require 'child_process'
 _async = require 'async'
+_config = require '../config'
 
 
 inert2DB = ()->
-  # console.log _entity
-  console.log new Date().valueOf()
+  console.log new Date()
+
   index = 0
-  for key, entity of _entity 
-    ((entity)->
+
+  table_redis = _config.table_redis
+  
+  for table, redis of table_redis
+    ((table, redis)->
       setTimeout(()->
-        if entity.insert2DB
-          entity.insert2DB() 
-      , (index++) * 5 * 1000)
-    )(entity)
+          _entity.main.insert2DB(table, redis) 
+      , (index++) * 3 * 1000)
+    )(table, redis)
 
 
 
 exports.initSchedule = ()->
-  # inert2DB()
+  inert2DB()
   rule_mi = new _schedule.RecurrenceRule()
 
   rule_mi.second = 0

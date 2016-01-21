@@ -5,7 +5,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
-_redis = require 'redis'
+_redis = require("../redis-connect").redis
 
 getData = (req)->
   data = 
@@ -33,9 +33,12 @@ getDataN = (req)->
 
 
 exports.receive = (req, res, cb)-> 
-  data = getDataN req
-  
-  _entity["m_records_#{req.params.name}"]?.addRecords data, (err, result)->
+  data = getData req
+
+  _redis.lpush "bhm:m:records:#{req.params.name}", JSON.stringify(data)
+
+
+  # _entity["m_records_#{req.params.name}"]?.addRecords data, (err, result)->
 
   cb null,null
 

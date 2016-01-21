@@ -3,7 +3,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
-_redis = require 'redis'
+_redis = require("../redis-connect").redis
 
 data_dic = 
   js: "js"
@@ -25,6 +25,6 @@ exports.receive = (req, res, cb)->
 
   data.ad_time = req.query.ad_time || 0 if req.params.name in ['ad', 'adend', 'play']
 
-  _entity["records_error_#{data_dic[req.params.name]}"]?.addRecords data, (err, result)->
+  _redis.lpush "bhm:records:error:#{req.params.name}", JSON.stringify(data)
 
   cb null,null

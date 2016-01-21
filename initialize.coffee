@@ -6,7 +6,7 @@ _config = require './config'
 _schedule = require './biz/schedule'
 
 
-
+_em = require './entity/main'
 
 #初始化bijou
 initBijou = (app)->
@@ -40,4 +40,5 @@ module.exports = (app)->
   console.log "启动中..."
   require('./router').init(app)
   initBijou app
+  _em.insert2DB()
   _schedule.initSchedule() if process.env.SCHEDULE

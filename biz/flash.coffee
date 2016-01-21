@@ -3,7 +3,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
-_redis = require 'redis'
+_redis = require("../redis-connect").redis
 
 data_dic = 
   ad: "ad"
@@ -34,8 +34,9 @@ exports.receiveFlashLoad = (req, res, cb)->
 
   data.load_time = req.query.load_time || 0
 
-  _entity.records_flash.addRecords data, (err, result)->
-    cb err
+  _redis.lpush "bhm:records:flash", JSON.stringify(data)
+  
+  cb null,null
 
 
 exports.receive = (req, res, cb)-> 
@@ -43,6 +44,6 @@ exports.receive = (req, res, cb)->
 
   data.ad_time = req.query.ad_time || 0 if req.params.name in ['ad', 'adend', 'play']
 
-  _entity["records_flash_#{data_dic[req.params.name]}"]?.addRecords data, (err, result)->
+  _redis.lpush "bhm:records:flash:#{req.params.name}", JSON.stringify(data)
 
   cb null,null

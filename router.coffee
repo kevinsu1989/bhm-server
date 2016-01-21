@@ -6,9 +6,9 @@ _http = require('bijou').http
 
 # _config = require './config'
 _api = require './biz/api'
-_mapi = require './biz/m_api'
-_fapi = require './biz/flash'
-_errapi = require './biz/error'
+_err = require './biz/error'
+_flash = require './biz/flash'
+_mobile = require './biz/m_api'
 _cluster = require 'cluster'
 
 #################
@@ -21,25 +21,23 @@ receivePV = (req, res, next)->
 receiveJsError = (req, res, next)->
   _api.receiveJsError req, res, (err, result)-> _http.responseJSON err, result, res
 
-#################
 receiveFlashLoad = (req, res, next)->
-  _api.receiveFlashLoad req, res, (err, result)-> _http.responseJSON err, result, res
+  _flash.receiveFlashLoad req, res, (err, result)-> _http.responseJSON err, result, res
 
-#################
+receiveFlash = (req, res, next)->
+
+  _flash.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 
 receiveMobile = (req, res, next)->
 
-  _mapi.receive req, res, (err, result)-> _http.responseJSON err, result, res
+  _mobile.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 
-receiveFlash = (req, res, next)->
-
-  _fapi.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 receiveError = (req, res, next)->
 
-  _errapi.receive req, res, (err, result)-> _http.responseJSON err, result, res
+  _err.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 
 #初始化路由

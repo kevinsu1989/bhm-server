@@ -4,7 +4,7 @@ _ = require 'lodash'
 _entity = require '../entity'
 _ip = require 'lib-qqwry'
 _common = require '../common'
-_redis = require 'redis'
+_redis = require("../redis-connect").redis
 
 _schema = require '../schema'
 
@@ -49,8 +49,9 @@ exports.receiveData = (req, res, cb)->
     data.load_time = 0
     data.first_view = 0
 
-  _entity.records.addRecords data, (err, result)->
-    cb err
+  _redis.lpush "bhm:records", JSON.stringify(data)
+    
+  cb null, null
 
 
 # PV上报
@@ -75,8 +76,10 @@ exports.receivePV = (req, res, cb)->
   data.browser_version = ua.browser.version || null
   data.ua = ua.ua.substring(0,100) || null
 
-  _entity.records_pv.addRecords data, (err, result)->
-    cb err
+
+  _redis.lpush "bhm:records:pv", JSON.stringify(data)
+    
+  cb null, null
 
 # JS报错上报
 exports.receiveJsError = (req, res, cb)->
@@ -87,11 +90,9 @@ exports.receiveJsError = (req, res, cb)->
   data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
   data.message = data.message.split('?')[0].substring(0,300) if typeof data.message is 'string'
 
-  _entity.records_js_error.addRecords data, (err, result)->
-    cb err
+
+  _redis.lpush "bhm:records:error:js", JSON.stringify(data)
+    
+  cb null, null
 
 
-
-exports.insert2DB = (req, res, cb)->
-  for key, entity of _entity
-    entity.insert2DB() if entity.insert2DB
