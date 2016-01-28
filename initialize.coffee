@@ -4,7 +4,7 @@ _async = require 'async'
 _ = require 'lodash'
 _config = require './config'
 _schedule = require './biz/schedule'
-
+_fs = require 'fs-extra'
 
 _em = require './entity/main'
 
@@ -40,5 +40,5 @@ module.exports = (app)->
   console.log "启动中..."
   require('./router').init(app)
   initBijou app
-  _em.insert2DB()
   _schedule.initSchedule() if process.env.SCHEDULE
+

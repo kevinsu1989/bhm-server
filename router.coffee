@@ -8,7 +8,7 @@ _http = require('bijou').http
 _api = require './biz/api'
 _err = require './biz/error'
 _flash = require './biz/flash'
-_mobile = require './biz/m_api'
+_mobile = require './biz/mobile'
 _cluster = require 'cluster'
 
 #################

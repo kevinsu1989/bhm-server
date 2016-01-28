@@ -16,7 +16,8 @@
     "node-schedule": "^0.2.9",
     "node-redis": "^0.1.7",
     "lib-qqwry": "",
-    "ua-parser-js": "^0.7.9"
+    "ua-parser-js": "^0.7.9",
+    "fs-extra": "^0.26.5"
   },
   "scripts": {
     "start": "node-dev app.coffee"

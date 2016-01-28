@@ -20,6 +20,10 @@ module.exports =
 
   api_runner: 'app.coffee'
 
+  # data_path: '/data/bhm/data'
+
+  err_path: '/data/bhm/err'
+
   table_redis:
     m_records_app: "bhm:m:records:app"
     m_records_datail: "bhm:m:records:datail"
