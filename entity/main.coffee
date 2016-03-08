@@ -40,4 +40,10 @@ class Records extends _BaseEntity
     _fs.writeFile "#{path.pop()}/#{date.getHours()}-#{date.getMinutes()}", JSON.stringify(list)
 
 
+  getTableRedis: (id, cb)->
+    sql = "select table_name, redis from table_redis where work = #{id}" 
+
+    @execute sql, cb
+
+
 module.exports = new Records

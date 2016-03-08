@@ -34,6 +34,11 @@ receiveMobile = (req, res, next)->
   _mobile.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 
+receiveMobileNew = (req, res, next)->
+
+  _mobile.receiveNew req, res, (err, result)-> _http.responseJSON err, result, res
+
+
 
 receiveError = (req, res, next)->
 
@@ -55,17 +60,15 @@ exports.init = (app)->
 
   app.get '/api/pv', receivePV
 
-  app.get '/api/js/error', receiveJsError
-
   app.get '/api/m/:name', receiveMobile
+
+  app.get '/api/mobile/:name', receiveMobileNew
   
   app.get '/api/flash/:name', receiveFlash
 
   app.get '/api/flash', receiveFlashLoad
 
   app.get '/api/err/:type', receiveError
-
-  app.get '/api/js/error', receiveJsError
 
 
 

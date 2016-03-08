@@ -5,11 +5,6 @@ _ip = require 'lib-qqwry'
 _common = require '../common'
 _redis = require("../redis-connect").redis
 
-data_dic = 
-  js: "js"
-  flash: "flash"
-
-
 # flash加载成功上报
 exports.receiveFlashLoad = (req, res, cb)-> 
   data = getFlashData(req)

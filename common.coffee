@@ -78,10 +78,17 @@ exports.parseUA = (req)->
   _ua req.headers['user-agent']
 
 #过滤入库数据格式
-exports.initInsertData = (schema, query)->
+exports.initInsertData = (schema, query, extra)->
   data = {}
   for key, value of schema
     data[key] = query[key] || null
+  if extra
+    ext = {}
+    for key, value of query
+      ext[key] = query[key] if schema[key] is undefined and key not in ['callback','_']
+
+    data.add_fields = JSON.stringify ext
+
   data
 
 

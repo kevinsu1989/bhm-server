@@ -5,16 +5,6 @@ _ip = require 'lib-qqwry'
 _common = require '../common'
 _redis = require("../redis-connect").redis
 
-data_dic = 
-  ad: "ad"
-  adend: "ad_end"
-  cms: "cms"
-  play: "play"
-  video: "video_load"
-  dispatch: "dispatch"
-  bufferfull: "buffer_full"
-
-
 getFlashData = (req)->
   data = 
     timestamp: new Date().valueOf(),
@@ -40,6 +30,7 @@ exports.receiveFlashLoad = (req, res, cb)->
 
 
 exports.receive = (req, res, cb)-> 
+
   data = getFlashData req
 
   data.ad_time = req.query.ad_time || 0 if req.params.name in ['ad', 'adend', 'play']

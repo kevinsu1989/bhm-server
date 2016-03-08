@@ -25,7 +25,7 @@ validateData = (data)->
 # 基础数据
 exports.receiveData = (req, res, cb)->
   ua = _common.parseUA(req)
-  data = _common.initInsertData _schema.records.schema.fields, req.query
+  data = _common.initInsertData _schema.records.schema.fields, req.query, true
   data.url = data.url.split('?')[0].substring(0,100) if typeof data.url is 'string'
   data.refer = data.refer.split('?')[0].substring(0,100) if typeof data.refer is 'string'
   data.snail_name = data.snail_name.split('?')[0].substring(0,100) if typeof data.snail_name is 'string'
@@ -62,12 +62,8 @@ exports.receivePV = (req, res, cb)->
   data.ip = _ip.ipToInt _common.getClientIp(req)
   data.cli_time = req.query.hash || 0
   data = _.extend data,
-    # browser_name: ua.browser.name,
-    # browser_version: ua.browser.version,
-    # ua: ua.ua.substring(0,100),
     timestamp : new Date().valueOf(),
     hash: String(req.query.hash) + String(data.ip)
-
 
   if ua.browser.name
     data.browser_name = ua.browser.name.toLowerCase()
