@@ -23,20 +23,52 @@ getData = (req)->
   data
 
 getDataNew = (req)->
-  data = 
+  data =
     timestamp: new Date().valueOf()
-    ua: req.headers['user-agent'].substring(0,100) || null
-    video_id: req.query.video_id || null
+    ua: req.headers['user-agent'].substring(0,400) || null
+    video_id: req.query.videoId || null
+    collection_id: req.query.collectionId || null
     url: req.query.url || null
     status: req.query.status || null
     ip: _ip.ipToInt _common.getClientIp(req)
-    
+    version: req.query.version || null
+
   data.hash = req.query.hash + data.ip
 
   data.cookie = req.query.cookie || null if req.params.name is 'pv'
-  
+
+  data.cookie = req.query.cookie || null if req.params.name is 'play'
+
+  data.hasAd = req.query.hasAd || null if req.params.name is 'play'
+
+  data.video_id = data.video_id.split('&')[0]
+
+  data.url = data.url.split('?')[0].substring(0,100) if req.params.name is 'pv'
+
+  data.url = data.url.substring(0,450)
+
   data
 
+getDataBasic = (req)->
+  data =
+    timestamp: new Date().valueOf()
+    ua: req.headers['user-agent'].substring(0,400) || null
+    url: req.query.url || null
+    ip: _ip.ipToInt _common.getClientIp(req)
+    version: req.query.version || null
+    first_view: req.query.first_view || 0
+    first_paint: req.query.first_paint || 0
+    dom_ready: req.query.dom_ready || 0
+    load_time: req.query.loadTime || 0
+    snail_name: req.query.snail_name || null
+    snail_duration: req.query.snail_duration || 0
+    refer: req.query.refer || null
+
+  data.hash = req.query.hash + data.ip
+
+  data.url = data.url.substring(0,450)
+
+  data
 
 exports.receive = (req, res, cb)-> 
 
@@ -49,8 +81,11 @@ exports.receive = (req, res, cb)->
   cb null,null
 
 exports.receiveNew = (req, res, cb)-> 
-
-  data = getDataNew req
+  data = {}
+  if req.params.name is 'receive'
+    data = getDataBasic(req) 
+  else
+    data = getDataNew req
 
   _redis.lpush "bhm:mobile:records:#{req.params.name}", JSON.stringify(data)
 
