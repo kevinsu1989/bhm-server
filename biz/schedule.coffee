@@ -40,7 +40,7 @@ exports.initSchedule = ()->
     rule = new _schedule.RecurrenceRule()
 
     if process.env.TYPE is 'file'
-      rule.miniute = 0
+      rule.minute = 0
       work = _schedule.scheduleJob rule, writeFiles
     else
       rule.second = 0

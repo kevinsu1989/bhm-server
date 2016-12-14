@@ -12,6 +12,7 @@ _util = require 'util'
 _moment = require 'moment'
 _fs = require 'fs-extra'
 _pageEvent = new _events.EventEmitter()
+_redis = require('./redis-connect').redis
 
 #触发事件
 exports.trigger = (name, arg...)-> _pageEvent.emit(name, arg)
