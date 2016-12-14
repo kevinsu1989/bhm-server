@@ -1,0 +1,20 @@
+/api/mobile/:name
+{
+	"key":"",//唯一key
+	"status":"",//状态码
+	"videoid":"num"//videoid
+}
+URL:/api/flash
+PARAMS:{
+	"cli_version":"",
+	"cli_time":"",
+	"load_time":"",
+	"url":"",
+	"hash":""
+}
+
+URL:/api/pv
+PARAMS:{
+	"url":"",
+	"hash":""
+}

@@ -1,6 +1,0 @@
-/api/m/:task
-{
-	"key":"",//唯一key
-	"status":"",//状态码
-	"videoid":"num"//videoid
-}

@@ -9,6 +9,8 @@ _ = require 'lodash'
 
 _ua = require 'ua-parser-js'
 _util = require 'util'
+_moment = require 'moment'
+_fs = require 'fs-extra'
 _pageEvent = new _events.EventEmitter()
 
 #触发事件
@@ -99,4 +101,8 @@ exports.getClientIp = (req)->
   req.connection.socket.remoteAddress
   ipAddress = if /((?:(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(?:25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d))))/.test ipAddress then RegExp.$1 else '127.0.0.1'
 
-
+exports.writeFiles = (path, redis_name)->
+  _redis.lrange redis_name, 0, -1, (err, result)->
+    return if !result || result.length is 0
+    time = _moment();
+    path = _path.join(path, time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString());

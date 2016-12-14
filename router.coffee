@@ -9,6 +9,7 @@ _api = require './biz/api'
 _err = require './biz/error'
 _flash = require './biz/flash'
 _mobile = require './biz/mobile'
+_timeline = require './biz/timeline'
 _cluster = require 'cluster'
 
 #################
@@ -45,6 +46,11 @@ receiveError = (req, res, next)->
   _err.receive req, res, (err, result)-> _http.responseJSON err, result, res
 
 
+receiveTimeline = (req, res, next)->
+
+  _timeline.receive req, res, (err, result)-> _http.responseJSON err, result, res
+
+
 #初始化路由
 exports.init = (app)->
 
@@ -70,6 +76,7 @@ exports.init = (app)->
 
   app.get '/api/err/:type', receiveError
 
+  app.get '/api/timeline/:name', receiveTimeline
 
 
 

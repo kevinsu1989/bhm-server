@@ -45,5 +45,10 @@ class Records extends _BaseEntity
 
     @execute sql, cb
 
+  getFileRedis: (id, cb)->
+    sql = "select path, redis from file_redis where work = #{id}" 
+
+    @execute sql, cb
+
 
 module.exports = new Records
