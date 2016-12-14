@@ -41,7 +41,7 @@ exports.initSchedule = ()->
 
     if process.env.TYPE is 'file'
       rule.miniute = 0
-      work = _schedule.scheduleJob rule, inert2DB
+      work = _schedule.scheduleJob rule, writeFiles
     else
       rule.second = 0
       work = _schedule.scheduleJob rule, inert2DB
