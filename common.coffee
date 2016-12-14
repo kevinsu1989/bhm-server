@@ -105,5 +105,12 @@ exports.getClientIp = (req)->
 exports.writeFiles = (path, redis_name)->
   _redis.lrange redis_name, 0, -1, (err, result)->
     return if !result || result.length is 0
+    
+    # _redis.ltrim redis_name, result.length, -1
+
     time = _moment();
     path = _path.join(path, time.year().toString(), (time.month()+1).toString(), time.date().toString(), time.hour().toString());
+
+    result = JSON.parse "[#{result.toString()}]"
+
+    _fs.writeFile path, JSON.stringify(result)
