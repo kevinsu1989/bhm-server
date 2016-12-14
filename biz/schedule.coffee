@@ -37,10 +37,13 @@ writeFiles = ()->
 
 exports.initSchedule = ()->
 
-    rule_mi = new _schedule.RecurrenceRule()
+    rule = new _schedule.RecurrenceRule()
 
-    rule_mi.second = 0
-
-    mi = _schedule.scheduleJob rule_mi, inert2DB
+    if process.env.TYPE is 'file'
+      rule.miniute = 0
+      work = _schedule.scheduleJob rule, inert2DB
+    else
+      rule.second = 0
+      work = _schedule.scheduleJob rule, inert2DB
 
 
