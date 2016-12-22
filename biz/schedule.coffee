@@ -4,6 +4,9 @@ _child = require 'child_process'
 _async = require 'async'
 _common = require '../common'
 
+_timeline = require './timeline'
+
+
 inert2DB = ()->
   console.log new Date()
 
@@ -28,12 +31,14 @@ writeFiles = ()->
 
   _entity.main.getFileRedis id, (err, result)->
 
-    for file_redis in result
-      ((path, redis)->
+    for page in result
+      ((page)->
         setTimeout(()->
-            _common.writeFiles path, redis
+            _timeline.writeFiles page
         , (index++) * 3 * 1000)
-      )(file_redis.path, file_redis.redis)
+      )(page)
+
+
 
 exports.initSchedule = ()->
 

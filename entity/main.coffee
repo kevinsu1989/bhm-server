@@ -46,7 +46,7 @@ class Records extends _BaseEntity
     @execute sql, cb
 
   getFileRedis: (id, cb)->
-    sql = "select path, redis from file_redis where work = #{id}" 
+    sql = "select path, redis, url, name from file_redis where work = #{id}" 
 
     @execute sql, cb
 
