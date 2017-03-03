@@ -74,6 +74,8 @@ exports.receivePV = (req, res, cb)->
 
 
   _redis.lpush "bhm:records:pv", JSON.stringify(data)
+
+  # _redis.lpush "bhm:records:timeline:pv:", JSON.stringify(data)
     
   cb null, null
 
